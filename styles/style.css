@@ -1,0 +1,320 @@
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+:root {
+    /* Color Palette - Clean & Professional */
+    --bg-color: #f8f9fa;       /* Very light grey background */
+    --text-color: #333333;     /* Dark grey text for readability */
+    --accent-color: #2c3e50;   /* Navy Blue - Primary Brand Color */
+    --secondary-accent: #3498db; /* Bright Blue - Hover States/Links */
+    --white: #ffffff;
+    --shadow: 0 4px 6px rgba(0,0,0,0.1); /* Soft shadow for cards */
+}
+
+html {
+    scroll-behavior: smooth; /* Enables smooth scrolling when clicking nav links */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; padding: 0; }
+h1, h2, h3 { margin: 0; }
+
+/* =========================================
+   2. NAVIGATION BAR
+   ========================================= */
+nav {
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    position: fixed; /* Sticks to top */
+    width: 100%;
+    top: 0;
+    z-index: 1000; /* Ensures nav stays above everything else */
+}
+
+.nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    letter-spacing: 1px;
+}
+
+.nav-links { display: flex; gap: 2rem; }
+
+.nav-links a {
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--secondary-accent); }
+
+/* =========================================
+   3. HERO SECTION
+   ========================================= */
+header {
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, #ece9e6 0%, #ffffff 100%);
+    padding: 0 1rem;
+    margin-top: 0;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: #555;
+    margin-bottom: 2.5rem;
+}
+
+/* Button Styles */
+.btn {
+    background-color: var(--accent-color);
+    color: var(--white);
+    padding: 0.8rem 1.8rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-weight: 600;
+    border: 1px solid var(--accent-color);
+}
+
+.btn:hover {
+    background-color: var(--secondary-accent);
+    border-color: var(--secondary-accent);
+    transform: translateY(-2px); /* Subtle lift effect */
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--accent-color);
+    margin-left: 10px;
+}
+
+.btn-outline:hover {
+    background-color: var(--accent-color);
+    color: var(--white);
+    border-color: var(--accent-color);
+}
+
+/* =========================================
+   4. SECTIONS (Shared Styles)
+   ========================================= */
+section {
+    padding: 6rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    /* Offset so the fixed header doesn't cover section titles */
+    scroll-margin-top: 60px; 
+}
+
+h2 {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 3.5rem;
+    color: var(--accent-color);
+    position: relative;
+}
+
+/* Decorative underline for H2 */
+h2::after {
+    content: '';
+    width: 60px;
+    height: 4px;
+    background-color: var(--secondary-accent);
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+/* =========================================
+   5. SKILLS GRID
+   ========================================= */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.skill-item {
+    background: var(--white);
+    padding: 1.2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Lighter shadow than cards */
+    font-weight: 600;
+    color: var(--accent-color);
+    border: 1px solid #eee;
+    transition: transform 0.2s;
+}
+
+.skill-item:hover {
+    transform: translateY(-3px);
+    border-color: var(--secondary-accent);
+}
+
+/* =========================================
+   6. PROJECTS SECTION (Updated for Video)
+   ========================================= */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.project-card {
+    background: var(--white);
+    border-radius: 12px; /* Softer corners */
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #f0f0f0;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* Video Player Styles */
+.project-video {
+    width: 100%;
+    height: 220px;
+    background-color: #000; /* Black bg while loading */
+    object-fit: cover;      /* Ensures video fills the box without stretching */
+    display: block;
+    outline: none;
+}
+
+.project-info {
+    padding: 1.5rem;
+}
+
+.project-info h3 {
+    font-size: 1.4rem;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.tech-stack {
+    font-size: 0.85rem;
+    color: var(--secondary-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.project-info p {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.project-links a {
+    font-size: 0.95rem;
+    color: var(--accent-color);
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.project-links a:hover {
+    color: var(--secondary-accent);
+    border-bottom: 2px solid var(--secondary-accent);
+}
+
+/* =========================================
+   7. CONTACT SECTION
+   ========================================= */
+.contact-container {
+    text-align: center;
+    background-color: var(--white);
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.social-links {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.social-links a {
+    font-size: 1.1rem;
+    color: #555;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--secondary-accent);
+}
+
+/* =========================================
+   8. FOOTER
+   ========================================= */
+footer {
+    text-align: center;
+    padding: 2.5rem;
+    background-color: var(--accent-color);
+    color: var(--white);
+    margin-top: 4rem;
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   9. RESPONSIVE DESIGN (Mobile)
+   ========================================= */
+@media (max-width: 768px) {
+    /* Adjust Hero Font */
+    .hero-content h1 { font-size: 2.5rem; }
+    
+    /* Stack Navigation */
+    .nav-container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .nav-links {
+        margin-top: 1rem;
+        gap: 1.2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* Adjust Section Padding */
+    section { padding: 4rem 1.5rem; }
+    
+    /* Adjust Buttons */
+    .btn { width: 100%; box-sizing: border-box; margin-bottom: 0.5rem; }
+    .btn-outline { margin-left: 0; }
+}

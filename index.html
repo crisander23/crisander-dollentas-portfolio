@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Full Stack Developer</title>
+    <style>
+        /* =========================================
+           1. VARIABLES & THEMES
+           ========================================= */
+        :root {
+            /* --- LIGHT MODE (Default) --- */
+            --bg-color: #f8f9fa;
+            --text-color: #333333;
+            --text-muted: #555555;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+            
+            --accent-color: #0f172a;   /* Navy */
+            --secondary-accent: #2563eb; /* Blue */
+            --light-accent: #e2e8f0;   /* Light Grey Lines */
+            
+            --shadow: 0 4px 6px rgba(0,0,0,0.05);
+            --shadow-hover: 0 10px 15px rgba(0,0,0,0.1);
+            
+            --hero-overlay: linear-gradient(180deg, rgba(241, 245, 249, 0.9) 0%, rgba(255, 255, 255, 1) 100%);
+        }
+
+        /* --- DARK MODE OVERRIDES --- */
+        body.dark-mode {
+            --bg-color: #0f172a;       /* Dark Navy Background */
+            --text-color: #f1f5f9;     /* Light Text */
+            --text-muted: #94a3b8;     /* Muted Light Text */
+            --card-bg: #1e293b;        /* Darker Card Background */
+            --nav-bg: #1e293b;         /* Dark Nav */
+            
+            --accent-color: #f8fafc;   /* White/Light for headings */
+            --secondary-accent: #60a5fa; /* Lighter Blue for dark mode */
+            --light-accent: #334155;   /* Darker Grey Lines */
+            
+            --shadow: 0 4px 6px rgba(0,0,0,0.3);
+            --shadow-hover: 0 10px 15px rgba(0,0,0,0.5);
+
+            /* Dark overlay for hero image so text pops */
+            --hero-overlay: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 1) 100%);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding: 0; }
+        h1, h2, h3, h4 { margin: 0; }
+
+        /* =========================================
+           2. NAVIGATION BAR
+           ========================================= */
+        nav {
+            background-color: var(--nav-bg);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { font-weight: 500; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--secondary-accent); }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            cursor: pointer;
+            background: none;
+            border: 2px solid var(--light-accent);
+            padding: 5px 10px;
+            border-radius: 20px;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        .theme-toggle:hover {
+            border-color: var(--secondary-accent);
+            color: var(--secondary-accent);
+        }
+
+        /* =========================================
+           3. HERO SECTION (With Background Image)
+           ========================================= */
+        header {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 1rem 2rem 1rem;
+            
+            /* BACKGROUND IMAGE CONFIGURATION */
+            /* 1. We use the overlay variable (gradient) on top */
+            /* 2. Then we load the image */
+            background: var(--hero-overlay), url('assets/hero-bg.jpg');
+            
+            background-size: cover;      /* Ensures image covers full area */
+            background-position: center; /* Centers the image */
+            background-attachment: fixed;/* Parallax effect (image stays still while scrolling) */
+            transition: background 0.3s; /* Smooth transition for dark mode overlay */
+        }
+
+        .hero-content { max-width: 800px; }
+        
+        .hero-content h1 { 
+            font-size: 3.5rem; 
+            margin-bottom: 1rem; 
+            color: var(--accent-color);
+            line-height: 1.2;
+        }
+        
+        .hero-title-highlight { color: var(--secondary-accent); }
+
+        .hero-content p { 
+            font-size: 1.25rem; 
+            color: var(--text-muted); 
+            margin-bottom: 2.5rem; 
+        }
+
+        .btn {
+            background-color: var(--secondary-accent); /* Changed to blue for better contrast in dark mode */
+            color: #ffffff;
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-weight: 600;
+            border: 2px solid var(--secondary-accent);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--secondary-accent);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            margin-left: 10px;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--accent-color);
+            /* Logic for text color on hover depending on mode */
+            color: var(--bg-color); 
+        }
+
+        /* =========================================
+           4. SECTIONS (General)
+           ========================================= */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            scroll-margin-top: 70px; 
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 3.5rem;
+            color: var(--accent-color);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary-accent);
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* =========================================
+           5. EXPERIENCE SECTION
+           ========================================= */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--light-accent);
+            top: 0;
+            bottom: 0;
+            left: 20px;
+        }
+
+        .experience-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--light-accent);
+            margin-left: 50px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            left: -39px;
+            top: 25px;
+            background-color: var(--secondary-accent);
+            border: 4px solid var(--bg-color); /* Matches body bg to look like a cutout */
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 0 2px var(--secondary-accent);
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .exp-role { font-size: 1.2rem; font-weight: 700; color: var(--accent-color); }
+        .exp-company { font-size: 1.1rem; color: var(--text-muted); font-weight: 500; }
+        .exp-date { font-size: 0.9rem; color: var(--text-muted); font-style: italic; opacity: 0.8; }
+        .exp-list { list-style: disc; padding-left: 1.2rem; color: var(--text-muted); }
+        .exp-list li { margin-bottom: 0.5rem; }
+
+        /* =========================================
+           6. SKILLS GRID
+           ========================================= */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+            text-align: center;
+        }
+
+        .skill-item {
+            background: var(--card-bg);
+            padding: 1.2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            font-weight: 600;
+            color: var(--accent-color);
+            border: 1px solid var(--light-accent);
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--secondary-accent);
+            color: var(--secondary-accent);
+        }
+
+        /* =========================================
+           7. PROJECTS SECTION
+           ========================================= */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            border: 1px solid var(--light-accent);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .project-media {
+            width: 100%;
+            height: 220px;
+            background-color: #334155; /* Darker placeholder */
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-info { padding: 1.5rem; }
+
+        .project-info h3 {
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-stack {
+            font-size: 0.8rem;
+            color: var(--secondary-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .project-info p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-links a {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            font-weight: 700;
+            border-bottom: 2px solid transparent;
+            margin-right: 15px;
+        }
+
+        .project-links a:hover {
+            color: var(--secondary-accent);
+            border-bottom: 2px solid var(--secondary-accent);
+        }
+
+        /* =========================================
+           8. CONTACT & FOOTER
+           ========================================= */
+        .contact-container {
+            text-align: center;
+            background-color: var(--card-bg);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--light-accent);
+            transition: background-color 0.3s;
+        }
+
+        .social-links {
+            margin-top: 2.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        .social-links a { font-weight: 600; color: var(--text-muted); }
+        .social-links a:hover { color: var(--secondary-accent); }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            background-color: var(--nav-bg); /* Match Nav */
+            color: var(--text-muted);
+            border-top: 1px solid var(--light-accent);
+            margin-top: 4rem;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .nav-container { flex-direction: column; padding: 1rem; }
+            .nav-links { margin-top: 1rem; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+            section { padding: 4rem 1.5rem; }
+            .timeline::after { left: 10px; }
+            .experience-card { margin-left: 30px; padding: 1.5rem; }
+            .experience-card::before { left: -28px; }
+            .btn { width: 100%; box-sizing: border-box; margin-bottom: 0.5rem; }
+            .btn-outline { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">John Doe</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#experience">Experience</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+                <button id="theme-toggle" class="theme-toggle" title="Toggle Dark Mode">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <header id="about">
+        <div class="hero-content">
+            <h1>Building Scalable <br><span class="hero-title-highlight">Web & Data Solutions</span></h1>
+            <p>Full-Stack Developer specializing in React and Node.js/Express. Skilled in Python ETL automation, Power BI analytics, and cross-platform delivery.</p>
+            <a href="#experience" class="btn">View Experience</a>
+            <a href="assets/resume.pdf" class="btn btn-outline" download>Download Resume</a>
+        </div>
+    </header>
+
+    <section id="experience">
+        <h2>Professional Experience</h2>
+        <div class="timeline">
+            
+            <div class="experience-card">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-role">Junior Developer</div>
+                        <div class="exp-company">One Document Corporation</div>
+                    </div>
+                    <div class="exp-date">2023 — Present</div>
+                </div>
+                <ul class="exp-list">
+                    <li>Built and maintained Node.js/Express REST APIs backed by MySQL, supporting production workloads.</li>
+                    <li>Refactored backend modules and implemented caching, improving p95 latency by ~40% (480ms → 290ms).</li>
+                    <li>Automated reporting workflows using Python ETL, reducing manual work by ~12 hours/week.</li>
+                    <li>Developed React web portals for operations and incident tracking used across 60 electric cooperatives.</li>
+                </ul>
+            </div>
+
+            <div class="experience-card">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-role">Mobile Developer Intern</div>
+                        <div class="exp-company">One Document Corporation</div>
+                    </div>
+                    <div class="exp-date">Feb 2023 — July 2023</div>
+                </div>
+                <ul class="exp-list">
+                    <li>Built two production pilots: Public Market Ticketing and Parking Ticketing mobile apps in Flutter/Dart.</li>
+                    <li>Implemented core flows including ticket creation, fee computation, and QR/Barcode scanning.</li>
+                    <li>Added offline caching (SQLite) with background sync and robust API error handling.</li>
+                </ul>
+            </div>
+
+             <div class="experience-card">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-role">Multimedia Designer</div>
+                        <div class="exp-company">Limitless Enterprise Solutions Inc.</div>
+                    </div>
+                    <div class="exp-date">2020 — 2021</div>
+                </div>
+                <ul class="exp-list">
+                    <li>Produced 30+ packaging, label, and promotional assets reinforcing consistent brand identity.</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Core Competencies</h2>
+        <div class="skills-grid">
+            <div class="skill-item">Node.js / Express</div>
+            <div class="skill-item">React.js</div>
+            <div class="skill-item">Python (ETL)</div>
+            <div class="skill-item">SQL (MySQL/Postgres)</div>
+            <div class="skill-item">Flutter / Dart</div>
+            <div class="skill-item">REST APIs</div>
+            <div class="skill-item">Power BI</div>
+            <div class="skill-item">QGIS (Map Layers)</div>
+            <div class="skill-item">CI/CD (GitHub Actions)</div>
+            <div class="skill-item">Auth (JWT/OAuth2)</div>
+            <div class="skill-item">Agile / Scrum</div>
+            <div class="skill-item">Figma (UI/UX)</div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Featured Projects</h2>
+        <div class="project-grid">
+            
+            <div class="project-card">
+                <video class="project-media" controls>
+                    <source src="assets/resume.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="project-info">
+                    <h3>AI-Powered Resume Builder</h3>
+                    <p class="tech-stack">React • OpenAI API • Netlify</p>
+                    <p>A web application enabling users to build and download professional resumes. Features integrated AI that generates targeted resume content by analyzing inputted job descriptions.</p>
+                    <div class="project-links">
+                        <a href="https://classic-resume-builder.netlify.app/" target="_blank">Live Site</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <img src="assets/uiux-game-poster.jpg" alt="UI/UX Game Design" class="project-media">
+                <div class="project-info">
+                    <h3>UI/UX Design for Games</h3>
+                    <p class="tech-stack">UI/UX • Mobile Design • Game Interface</p>
+                    <p>Designed immersive interfaces for a mobile game and a user-friendly app with seamless navigation.</p>
+                    <div class="project-links">
+                        <a href="#">View Designs</a>
+                    </div>
+                </div>
+            </div>
+
+             <div class="project-card">
+                <video class="project-media" controls>
+                    <source src="assets/clouds.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="project-info">
+                    <h3>Clouds: Create Loud</h3>
+                    <p class="tech-stack">HTML • PHP • JavaScript • E-Commerce</p>
+                    <p>Streetwear apparel brand website. Features product catalog, search/filter, and order confirmation with server-side sessions.</p>
+                    <div class="project-links">
+                        <a href="https://clouds-createloud.vercel.app" target="_blank">Live Site</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <video class="project-media" controls>
+                    <source src="assets/assiteon.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="project-info">
+                    <h3>Assiteon Staffing Solutions</h3>
+                    <p class="tech-stack">Agency Website • Recruiting • Web Design</p>
+                    <p>A responsive website for a Virtual Assistant agency, connecting clients with creative and tech professionals.</p>
+                    <div class="project-links">
+                        <a href="https://assisteonstaffing.com/">View Site</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <video class="project-media" controls>
+                    <source src="assets/techitez.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="project-info">
+                    <h3>Tech IT EZ Retailer</h3>
+                    <p class="tech-stack">E-Commerce • Secure Checkout • UX</p>
+                    <p>An electronic products retailer site featuring search filters, secure checkout, and cross-device accessibility.</p>
+                    <div class="project-links">
+                        <a href="https://crisander23.github.io/TechITEZ">View Shop</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <video class="project-media" controls>
+                    <source src="assets/crypto.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="project-info">
+                    <h3>Web3 Crypto Dashboard</h3>
+                    <p class="tech-stack">Web3 • API Integration • Real-time Data</p>
+                    <p>A live cryptocurrency dashboard providing price updates, market analysis, and buy/hold recommendations.</p>
+                    <div class="project-links">
+                        <a href="https://crisander23.github.io/CryptoDash/" target="_blank">Live Dashboard</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-container">
+            <p>Currently open to new opportunities in Full Stack Development.</p>
+            <br>
+            <a href="mailto:your.email@example.com" class="btn">Send Email</a>
+            
+            <div class="social-links">
+                <a href="#">LinkedIn</a>
+                <a href="#">GitHub</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024. Built with HTML & CSS.</p>
+    </footer>
+
+    <script>
+        const toggleButton = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // 1. Check if user already has a preference saved in local storage
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            toggleButton.textContent = '☀️'; // Switch icon to sun
+        }
+
+        // 2. Add event listener to toggle button
+        toggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+
+            // 3. Save preference and update icon
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                toggleButton.textContent = '☀️';
+            } else {
+                localStorage.setItem('theme', 'light');
+                toggleButton.textContent = '🌙';
+            }
+        });
+    </script>
+
+</body>
+</html>
