@@ -3,52 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Full Stack Developer</title>
+    <title>Portfolio | Crisander Dollentas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         /* =========================================
-           1. VARIABLES & THEMES
+           1. NOTION VARIABLES & THEME
            ========================================= */
         :root {
-            /* --- LIGHT MODE (Default) --- */
-            --bg-color: #f8f9fa;
-            --text-color: #333333;
-            --text-muted: #555555;
-            --card-bg: #ffffff;
-            --nav-bg: #ffffff;
+            /* --- NOTION LIGHT MODE --- */
+            --bg-color: #ffffff;
+            --text-color: #37352f;
+            --text-muted: #787774;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --border-color: #e9e9e9;
+            --hover-bg: #f7f7f5;
             
-            --accent-color: #0f172a;   /* Navy */
-            --secondary-accent: #2563eb; /* Blue */
-            --light-accent: #e2e8f0;   /* Light Grey Lines */
+            --tag-gray: #e3e2e080;
+            --tag-text: #32302c;
             
-            --shadow: 0 4px 6px rgba(0,0,0,0.05);
-            --shadow-hover: 0 10px 15px rgba(0,0,0,0.1);
+            --callout-bg: #f1f1ef;
             
-            --hero-overlay: linear-gradient(180deg, rgba(241, 245, 249, 0.9) 0%, rgba(255, 255, 255, 1) 100%);
+            --shadow: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-hover: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        /* --- DARK MODE OVERRIDES --- */
+        /* --- NOTION DARK MODE --- */
         body.dark-mode {
-            --bg-color: #0f172a;       /* Dark Navy Background */
-            --text-color: #f1f5f9;     /* Light Text */
-            --text-muted: #94a3b8;     /* Muted Light Text */
-            --card-bg: #1e293b;        /* Darker Card Background */
-            --nav-bg: #1e293b;         /* Dark Nav */
+            --bg-color: #191919;
+            --text-color: #d4d4d4;
+            --text-muted: #9b9a97;
+            --nav-bg: rgba(25, 25, 25, 0.9);
+            --border-color: #2f2f2f;
+            --hover-bg: #2c2c2c;
             
-            --accent-color: #f8fafc;   /* White/Light for headings */
-            --secondary-accent: #60a5fa; /* Lighter Blue for dark mode */
-            --light-accent: #334155;   /* Darker Grey Lines */
+            --tag-gray: #373737;
+            --tag-text: #e3e2e0;
             
-            --shadow: 0 4px 6px rgba(0,0,0,0.3);
-            --shadow-hover: 0 10px 15px rgba(0,0,0,0.5);
-
-            /* Dark overlay for hero image so text pops */
-            --hero-overlay: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 1) 100%);
+            --callout-bg: #252525;
+            
+            --shadow: 0 2px 4px rgba(0,0,0,0.2);
+            --shadow-hover: 0 4px 12px rgba(0,0,0,0.4);
         }
 
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: var(--bg-color);
@@ -57,355 +60,373 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        a { text-decoration: none; color: inherit; }
+        a { text-decoration: none; color: inherit; border-bottom: 1px solid rgba(120, 119, 116, 0.2); transition: 0.2s; }
+        a:hover { background-color: var(--tag-gray); }
         ul { list-style: none; padding: 0; }
-        h1, h2, h3, h4 { margin: 0; }
+        h1, h2, h3, h4 { margin: 0; font-weight: 600; letter-spacing: -0.02em; }
 
         /* =========================================
-           2. NAVIGATION BAR
+           2. LAYOUT & NAVIGATION
            ========================================= */
+        .page-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 100px 20px;
+        }
+
         nav {
             background-color: var(--nav-bg);
-            box-shadow: var(--shadow);
-            position: fixed;
-            width: 100%;
+            position: sticky;
             top: 0;
             z-index: 1000;
-            transition: background-color 0.3s;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .nav-container {
-            max-width: 1100px;
+            max-width: 900px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.25rem;
+            font-size: 0.9rem;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--accent-color);
-            letter-spacing: -0.5px;
+        .logo { font-weight: 600; font-size: 0.95rem; }
+        
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { 
+            color: var(--text-muted); 
+            border: none; 
+            padding: 4px 8px;
+            border-radius: 4px;
         }
+        .nav-links a:hover { background-color: var(--hover-bg); color: var(--text-color); }
 
-        .nav-links { display: flex; gap: 2rem; align-items: center; }
-        .nav-links a { font-weight: 500; font-size: 0.95rem; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--secondary-accent); }
-
-        /* Theme Toggle Button */
         .theme-toggle {
             cursor: pointer;
             background: none;
-            border: 2px solid var(--light-accent);
-            padding: 5px 10px;
-            border-radius: 20px;
-            color: var(--text-color);
-            font-size: 1.2rem;
-            transition: all 0.3s;
+            border: none;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            padding: 4px;
+            border-radius: 4px;
         }
-        .theme-toggle:hover {
-            border-color: var(--secondary-accent);
-            color: var(--secondary-accent);
-        }
+        .theme-toggle:hover { background-color: var(--hover-bg); }
 
         /* =========================================
-           3. HERO SECTION (With Background Image)
+           3. HEADER (CENTERED)
            ========================================= */
         header {
-            min-height: 90vh;
+            margin-top: 0;
+            padding-top: 4rem;
+            padding-bottom: 3rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center; 
             text-align: center;
-            padding: 6rem 1rem 2rem 1rem;
-            
-            /* BACKGROUND IMAGE CONFIGURATION */
-            /* 1. We use the overlay variable (gradient) on top */
-            /* 2. Then we load the image */
-            background: var(--hero-overlay), url('assets/hero-bg.jpg');
-            
-            background-size: cover;      /* Ensures image covers full area */
-            background-position: center; /* Centers the image */
-            background-attachment: fixed;/* Parallax effect (image stays still while scrolling) */
-            transition: background 0.3s; /* Smooth transition for dark mode overlay */
         }
 
-        .hero-content { max-width: 800px; }
-        
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem auto; 
+            display: block;
+        }
+
+        .hero-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .hero-content h1 { 
-            font-size: 3.5rem; 
+            font-size: 2.5rem; 
             margin-bottom: 1rem; 
-            color: var(--accent-color);
             line-height: 1.2;
         }
         
-        .hero-title-highlight { color: var(--secondary-accent); }
-
-        .hero-content p { 
-            font-size: 1.25rem; 
-            color: var(--text-muted); 
-            margin-bottom: 2.5rem; 
+        .callout {
+            background-color: var(--callout-bg);
+            padding: 16px;
+            border-radius: 4px;
+            display: inline-flex;
+            gap: 12px;
+            margin: 1.5rem auto;
+            align-items: flex-start;
+            max-width: 600px;
+            text-align: left;
         }
+        
+        .callout-icon { font-size: 1.2rem; }
+        .callout-text { font-size: 0.95rem; color: var(--text-color); margin: 0;}
 
+        .btn-group { 
+            margin-top: 1rem; 
+            display: flex; 
+            gap: 10px; 
+            justify-content: center;
+        }
+        
         .btn {
-            background-color: var(--secondary-accent); /* Changed to blue for better contrast in dark mode */
-            color: #ffffff;
-            padding: 0.8rem 2rem;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            display: inline-block;
-            font-weight: 600;
-            border: 2px solid var(--secondary-accent);
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            border: 1px solid var(--text-color);
+            font-weight: 500;
         }
-
-        .btn:hover {
-            background-color: transparent;
-            color: var(--secondary-accent);
-            transform: translateY(-2px);
-        }
+        .btn:hover { opacity: 0.9; background-color: var(--text-color); border: none; }
 
         .btn-outline {
             background-color: transparent;
-            color: var(--accent-color);
-            border: 2px solid var(--accent-color);
-            margin-left: 10px;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
         }
-
-        .btn-outline:hover {
-            background-color: var(--accent-color);
-            /* Logic for text color on hover depending on mode */
-            color: var(--bg-color); 
-        }
+        .btn-outline:hover { background-color: var(--hover-bg); }
 
         /* =========================================
-           4. SECTIONS (General)
+           4. SECTIONS & HEADERS
            ========================================= */
-        section {
-            padding: 5rem 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-            scroll-margin-top: 70px; 
-        }
+        section { padding: 2.5rem 0; }
 
         h2 {
-            font-size: 2.2rem;
-            text-align: center;
-            margin-bottom: 3.5rem;
-            color: var(--accent-color);
-            position: relative;
-        }
-
-        h2::after {
-            content: '';
-            width: 60px;
-            height: 4px;
-            background-color: var(--secondary-accent);
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* =========================================
-           5. EXPERIENCE SECTION
-           ========================================= */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 2px;
-            background-color: var(--light-accent);
-            top: 0;
-            bottom: 0;
-            left: 20px;
-        }
-
-        .experience-card {
-            background: var(--card-bg);
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            position: relative;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--light-accent);
-            margin-left: 50px;
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-
-        .experience-card::before {
-            content: '';
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            left: -39px;
-            top: 25px;
-            background-color: var(--secondary-accent);
-            border: 4px solid var(--bg-color); /* Matches body bg to look like a cutout */
-            border-radius: 50%;
-            z-index: 1;
-            box-shadow: 0 0 0 2px var(--secondary-accent);
-        }
-
-        .exp-header {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
         }
 
-        .exp-role { font-size: 1.2rem; font-weight: 700; color: var(--accent-color); }
-        .exp-company { font-size: 1.1rem; color: var(--text-muted); font-weight: 500; }
-        .exp-date { font-size: 0.9rem; color: var(--text-muted); font-style: italic; opacity: 0.8; }
-        .exp-list { list-style: disc; padding-left: 1.2rem; color: var(--text-muted); }
-        .exp-list li { margin-bottom: 0.5rem; }
+        /* =========================================
+           5. EXPERIENCE
+           ========================================= */
+        .timeline { border-left: 1px solid var(--border-color); margin-left: 8px; padding-left: 20px; }
+        
+        .experience-item { margin-bottom: 2rem; position: relative; }
+        
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 6px;
+            width: 9px;
+            height: 9px;
+            background-color: var(--text-muted);
+            border-radius: 50%;
+        }
+
+        .exp-header { margin-bottom: 0.5rem; }
+        .exp-role { font-size: 1.1rem; font-weight: 600; }
+        .exp-company { font-size: 0.95rem; color: var(--text-muted); }
+        .exp-date { font-size: 0.85rem; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+        
+        .exp-list { 
+            margin-top: 0.5rem; 
+            padding-left: 1.2rem; 
+            color: var(--text-color); 
+            font-size: 0.95rem;
+            list-style: disc;
+        }
+        .exp-list li { margin-bottom: 0.3rem; }
 
         /* =========================================
-           6. SKILLS GRID
+           6. SKILLS
            ========================================= */
         .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1.5rem;
-            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .skill-item {
-            background: var(--card-bg);
-            padding: 1.2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            font-weight: 600;
-            color: var(--accent-color);
-            border: 1px solid var(--light-accent);
-            transition: transform 0.2s, background-color 0.3s;
-        }
-
-        .skill-item:hover {
-            transform: translateY(-3px);
-            border-color: var(--secondary-accent);
-            color: var(--secondary-accent);
+            background: var(--tag-gray);
+            color: var(--tag-text);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            border: none;
+            box-shadow: none;
         }
 
         /* =========================================
-           7. PROJECTS SECTION
+           7. PROJECTS
            ========================================= */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
         }
 
         .project-card {
-            background: var(--card-bg);
-            border-radius: 12px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-            border: 1px solid var(--light-accent);
+            transition: box-shadow 0.2s, background-color 0.2s;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card:hover {
-            transform: translateY(-8px);
             box-shadow: var(--shadow-hover);
+            background-color: var(--hover-bg);
         }
 
         .project-media {
             width: 100%;
-            height: 220px;
-            background-color: #334155; /* Darker placeholder */
+            height: 160px;
+            background-color: #f0f0f0;
             object-fit: cover;
-            display: block;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .project-info { padding: 1.5rem; }
+        .project-info { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; }
 
         .project-info h3 {
-            font-size: 1.3rem;
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            margin-bottom: 4px;
         }
 
         .tech-stack {
-            font-size: 0.8rem;
-            color: var(--secondary-accent);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 1rem;
-            font-weight: 700;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 400;
+            background: var(--tag-gray);
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
         }
 
         .project-info p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            margin-bottom: 12px;
+            line-height: 1.4;
+            flex-grow: 1;
         }
 
+        .project-links { border-top: 1px solid var(--border-color); padding-top: 8px; margin-top: auto;}
         .project-links a {
-            font-size: 0.9rem;
-            color: var(--accent-color);
-            font-weight: 700;
-            border-bottom: 2px solid transparent;
-            margin-right: 15px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border: none;
+            cursor: pointer; /* Added for modal trigger */
+        }
+        .project-links a:hover { color: var(--text-color); background: none; text-decoration: underline;}
+
+        /* =========================================
+           8. MODAL STYLES (NEW)
+           ========================================= */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgba(0,0,0,0.6); /* Backdrop */
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
         }
 
-        .project-links a:hover {
-            color: var(--secondary-accent);
-            border-bottom: 2px solid var(--secondary-accent);
+        .modal-content {
+            background-color: var(--bg-color);
+            margin: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 90%;
+            height: 90%;
+            position: relative;
+            box-shadow: var(--shadow-hover);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .close-btn {
+            color: var(--text-muted);
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+            line-height: 1;
+        }
+
+        .close-btn:hover { color: var(--text-color); }
+
+        .modal-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+            background-color: white; /* Iframe usually needs white bg */
+            margin-top: 40px; /* Space for header bar */
+        }
+        
+        /* Small header bar inside modal for the close button */
+        .modal-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: var(--nav-bg);
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
         /* =========================================
-           8. CONTACT & FOOTER
+           9. FOOTER
            ========================================= */
         .contact-container {
-            text-align: center;
-            background-color: var(--card-bg);
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--light-accent);
-            transition: background-color 0.3s;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .social-links {
-            margin-top: 2.5rem;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
-        
-        .social-links a { font-weight: 600; color: var(--text-muted); }
-        .social-links a:hover { color: var(--secondary-accent); }
+        .social-links { display: flex; gap: 1rem; margin-top: 1rem;}
+        .social-links a { font-size: 0.9rem; border-bottom: 1px solid var(--border-color); }
 
         footer {
-            text-align: center;
-            padding: 2.5rem;
-            background-color: var(--nav-bg); /* Match Nav */
-            color: var(--text-muted);
-            border-top: 1px solid var(--light-accent);
             margin-top: 4rem;
-            font-size: 0.9rem;
-            transition: background-color 0.3s;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            text-align: left;
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2.5rem; }
-            .nav-container { flex-direction: column; padding: 1rem; }
-            .nav-links { margin-top: 1rem; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-            section { padding: 4rem 1.5rem; }
-            .timeline::after { left: 10px; }
-            .experience-card { margin-left: 30px; padding: 1.5rem; }
-            .experience-card::before { left: -28px; }
-            .btn { width: 100%; box-sizing: border-box; margin-bottom: 0.5rem; }
-            .btn-outline { margin-left: 0; }
+            .hero-content h1 { font-size: 2rem; }
+            .nav-container { padding: 0.8rem; }
+            .nav-links { display: none; }
+            .page-container { padding: 0 16px 60px 16px; }
+            .project-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -413,225 +434,226 @@
 
     <nav>
         <div class="nav-container">
-            <div class="logo">Crisander Dollentas</div>
+            <div class="logo">
+                Crisander Dollentas
+            </div>
             <div class="nav-links">
                 <a href="#about">About</a>
                 <a href="#experience">Experience</a>
-                <a href="#skills">Skills</a>
                 <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
                 <button id="theme-toggle" class="theme-toggle" title="Toggle Dark Mode">🌙</button>
             </div>
         </div>
     </nav>
 
-    <header id="about">
-        <div class="hero-content">
-            <h1>Building Scalable <br><span class="hero-title-highlight">Web & Data Solutions</span></h1>
-            <p>Full-Stack Developer specializing in React and Node.js/Express. Skilled in Python ETL automation, Power BI analytics, and cross-platform delivery.</p>
-            <a href="#experience" class="btn">View Experience</a>
-            <a href="assets/resume.pdf" class="btn btn-outline" download>Download Resume</a>
-        </div>
-    </header>
-
-    <section id="experience">
-        <h2>Professional Experience</h2>
-        <div class="timeline">
+    <div class="page-container">
+        
+        <header id="about">
+            <img src="assets/profile.jpg" alt="Crisander Dollentas" class="profile-img">
             
-            <div class="experience-card">
-                <div class="exp-header">
-                    <div>
+            <div class="hero-content">
+                <h1>Full Stack Developer</h1>
+                
+                <div class="callout">
+                 
+                    <p class="callout-text">
+                        Specializing in React and Node.js/Express. Skilled in Python ETL automation, Power BI analytics, and cross-platform delivery.
+                    </p>
+                </div>
+
+                <div class="btn-group">
+                    <a href="#experience" class="btn">View Experience</a>
+                    <a href="assets/resume.pdf" class="btn btn-outline" download>Download Resume</a>
+                </div>
+            </div>
+        </header>
+
+        <section id="experience">
+            <h2>Professional Experience</h2>
+            <div class="timeline">
+                <div class="experience-item">
+                    <div class="exp-header">
                         <div class="exp-role">Junior Developer</div>
-                        <div class="exp-company">One Document Corporation</div>
+                        <div class="exp-company">One Document Corporation • <span class="exp-date">2023 — Present</span></div>
                     </div>
-                    <div class="exp-date">2023 — Present</div>
+                    <ul class="exp-list">
+                        <li>Built and maintained Node.js/Express REST APIs backed by MySQL, supporting production workloads.</li>
+                        <li>Refactored backend modules and implemented caching, improving p95 latency by ~40% (480ms → 290ms).</li>
+                        <li>Automated reporting workflows using Python ETL, reducing manual work by ~12 hours/week.</li>
+                        <li>Developed React web portals for operations and incident tracking used across 60 electric cooperatives.</li>
+                    </ul>
                 </div>
-                <ul class="exp-list">
-                    <li>Built and maintained Node.js/Express REST APIs backed by MySQL, supporting production workloads.</li>
-                    <li>Refactored backend modules and implemented caching, improving p95 latency by ~40% (480ms → 290ms).</li>
-                    <li>Automated reporting workflows using Python ETL, reducing manual work by ~12 hours/week.</li>
-                    <li>Developed React web portals for operations and incident tracking used across 60 electric cooperatives.</li>
-                </ul>
-            </div>
-
-            <div class="experience-card">
-                <div class="exp-header">
-                    <div>
+                <div class="experience-item">
+                    <div class="exp-header">
                         <div class="exp-role">Mobile Developer Intern</div>
-                        <div class="exp-company">One Document Corporation</div>
+                        <div class="exp-company">One Document Corporation • <span class="exp-date">Feb 2023 — July 2023</span></div>
                     </div>
-                    <div class="exp-date">Feb 2023 — July 2023</div>
+                    <ul class="exp-list">
+                        <li>Built two production pilots: Public Market Ticketing and Parking Ticketing mobile apps in Flutter/Dart.</li>
+                        <li>Implemented core flows including ticket creation, fee computation, and QR/Barcode scanning.</li>
+                        <li>Added offline caching (SQLite) with background sync and robust API error handling.</li>
+                    </ul>
                 </div>
-                <ul class="exp-list">
-                    <li>Built two production pilots: Public Market Ticketing and Parking Ticketing mobile apps in Flutter/Dart.</li>
-                    <li>Implemented core flows including ticket creation, fee computation, and QR/Barcode scanning.</li>
-                    <li>Added offline caching (SQLite) with background sync and robust API error handling.</li>
-                </ul>
-            </div>
-
-             <div class="experience-card">
-                <div class="exp-header">
-                    <div>
+                 <div class="experience-item">
+                    <div class="exp-header">
                         <div class="exp-role">Multimedia Designer</div>
-                        <div class="exp-company">Limitless Enterprise Solutions Inc.</div>
+                        <div class="exp-company">Limitless Enterprise Solutions Inc. • <span class="exp-date">2020 — 2021</span></div>
                     </div>
-                    <div class="exp-date">2020 — 2021</div>
+                    <ul class="exp-list">
+                        <li>Produced 30+ packaging, label, and promotional assets reinforcing consistent brand identity.</li>
+                    </ul>
                 </div>
-                <ul class="exp-list">
-                    <li>Produced 30+ packaging, label, and promotional assets reinforcing consistent brand identity.</li>
-                </ul>
             </div>
+        </section>
 
+        <section id="skills">
+            <h2>Core Competencies</h2>
+            <div class="skills-grid">
+                <span class="skill-item">Node.js / Express</span>
+                <span class="skill-item">React.js</span>
+                <span class="skill-item">Python (ETL)</span>
+                <span class="skill-item">SQL (MySQL/Postgres)</span>
+                <span class="skill-item">Flutter / Dart</span>
+                <span class="skill-item">REST APIs</span>
+                <span class="skill-item">Power BI</span>
+                <span class="skill-item">QGIS (Map Layers)</span>
+                <span class="skill-item">CI/CD</span>
+                <span class="skill-item">Auth (JWT)</span>
+                <span class="skill-item">Agile / Scrum</span>
+                <span class="skill-item">Figma (UI/UX)</span>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Featured Projects</h2>
+            <div class="project-grid">
+                
+                <div class="project-card">
+                    <video class="project-media" controls>
+                        <source src="assets/resume.mp4" type="video/mp4">
+                    </video>
+                    <div class="project-info">
+                        <h3>AI Resume Builder</h3>
+                        <span class="tech-stack">React • OpenAI API • Netlify</span>
+                        <p>Web app enabling users to build resumes with integrated AI that generates targeted content from job descriptions.</p>
+                        <div class="project-links">
+                            <a href="https://classic-resume-builder.netlify.app/" class="site-link">Live Site ↗</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <img src="assets/uiux-game-poster.jpg" alt="UI/UX" class="project-media">
+                    <div class="project-info">
+                        <h3>UI/UX Design</h3>
+                        <span class="tech-stack">Mobile Design • Game Interface</span>
+                        <p>Designed immersive interfaces for a mobile game and a user-friendly app with seamless navigation.</p>
+                        <div class="project-links">
+                            <a href="#">View Designs ↗</a>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="project-card">
+                    <video class="project-media" controls>
+                        <source src="assets/clouds.mp4" type="video/mp4">
+                    </video>
+                    <div class="project-info">
+                        <h3>Clouds: Create Loud</h3>
+                        <span class="tech-stack">PHP • JS • E-Commerce</span>
+                        <p>Streetwear brand website with product catalog, search/filter, and order confirmation with server-side sessions.</p>
+                        <div class="project-links">
+                            <a href="https://clouds-createloud.vercel.app" class="site-link">Live Site ↗</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <video class="project-media" controls>
+                        <source src="assets/assiteon.mp4" type="video/mp4">
+                    </video>
+                    <div class="project-info">
+                        <h3>Assiteon Staffing</h3>
+                        <span class="tech-stack">Agency Website • Web Design</span>
+                        <p>Responsive website for a Virtual Assistant agency, connecting clients with creative and tech professionals.</p>
+                        <div class="project-links">
+                            <a href="https://assisteonstaffing.com/" class="site-link">View Site ↗</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <video class="project-media" controls>
+                        <source src="assets/techitez.mp4" type="video/mp4">
+                    </video>
+                    <div class="project-info">
+                        <h3>Tech IT EZ</h3>
+                        <span class="tech-stack">E-Commerce • Secure Checkout</span>
+                        <p>Electronic products retailer site featuring search filters, secure checkout, and cross-device accessibility.</p>
+                        <div class="project-links">
+                            <a href="https://crisander23.github.io/TechITEZ" class="site-link">View Shop ↗</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <video class="project-media" controls>
+                        <source src="assets/crypto.mp4" type="video/mp4">
+                    </video>
+                    <div class="project-info">
+                        <h3>Crypto Dashboard</h3>
+                        <span class="tech-stack">Web3 • API Integration</span>
+                        <p>Live cryptocurrency dashboard providing price updates, market analysis, and buy/hold recommendations.</p>
+                        <div class="project-links">
+                            <a href="https://crisander23.github.io/CryptoDash/" class="site-link">Live Dashboard ↗</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Get In Touch</h2>
+            <div class="contact-container">
+                <p>Currently open to new opportunities in Full Stack Development.</p>
+                <div class="btn-group" style="justify-content: center;">
+                    <a href="mailto:crisander.dollentas@gmail.com" class="btn">Send Email</a>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/crisander-dollentas/">LinkedIn ↗</a>
+                    <a href="https://github.com/crisander23">GitHub ↗</a>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <p>© 2025 Crisander Dollentas. All rights reserved.</p> 
+        </footer>
+    </div>
+
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="modalTitle">Project Preview</span>
+                <span class="close-btn">&times;</span>
+            </div>
+            <iframe src="" class="modal-iframe" id="modalFrame"></iframe>
         </div>
-    </section>
-
-    <section id="skills">
-        <h2>Core Competencies</h2>
-        <div class="skills-grid">
-            <div class="skill-item">Node.js / Express</div>
-            <div class="skill-item">React.js</div>
-            <div class="skill-item">Python (ETL)</div>
-            <div class="skill-item">SQL (MySQL/Postgres)</div>
-            <div class="skill-item">Flutter / Dart</div>
-            <div class="skill-item">REST APIs</div>
-            <div class="skill-item">Power BI</div>
-            <div class="skill-item">QGIS (Map Layers)</div>
-            <div class="skill-item">CI/CD (GitHub Actions)</div>
-            <div class="skill-item">Auth (JWT/OAuth2)</div>
-            <div class="skill-item">Agile / Scrum</div>
-            <div class="skill-item">Figma (UI/UX)</div>
-        </div>
-    </section>
-
-    <section id="projects">
-        <h2>Featured Projects</h2>
-        <div class="project-grid">
-            
-            <div class="project-card">
-                <video class="project-media" controls>
-                    <source src="assets/resume.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="project-info">
-                    <h3>AI-Powered Resume Builder</h3>
-                    <p class="tech-stack">React • OpenAI API • Netlify</p>
-                    <p>A web application enabling users to build and download professional resumes. Features integrated AI that generates targeted resume content by analyzing inputted job descriptions.</p>
-                    <div class="project-links">
-                        <a href="https://classic-resume-builder.netlify.app/" target="_blank">Live Site</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="project-card">
-                <img src="assets/uiux-game-poster.jpg" alt="UI/UX Game Design" class="project-media">
-                <div class="project-info">
-                    <h3>UI/UX Design for Games</h3>
-                    <p class="tech-stack">UI/UX • Mobile Design • Game Interface</p>
-                    <p>Designed immersive interfaces for a mobile game and a user-friendly app with seamless navigation.</p>
-                    <div class="project-links">
-                        <a href="#">View Designs</a>
-                    </div>
-                </div>
-            </div>
-
-             <div class="project-card">
-                <video class="project-media" controls>
-                    <source src="assets/clouds.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="project-info">
-                    <h3>Clouds: Create Loud</h3>
-                    <p class="tech-stack">HTML • PHP • JavaScript • E-Commerce</p>
-                    <p>Streetwear apparel brand website. Features product catalog, search/filter, and order confirmation with server-side sessions.</p>
-                    <div class="project-links">
-                        <a href="https://clouds-createloud.vercel.app" target="_blank">Live Site</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <video class="project-media" controls>
-                    <source src="assets/assiteon.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="project-info">
-                    <h3>Assiteon Staffing Solutions</h3>
-                    <p class="tech-stack">Agency Website • Recruiting • Web Design</p>
-                    <p>A responsive website for a Virtual Assistant agency, connecting clients with creative and tech professionals.</p>
-                    <div class="project-links">
-                        <a href="https://assisteonstaffing.com/">View Site</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <video class="project-media" controls>
-                    <source src="assets/techitez.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="project-info">
-                    <h3>Tech IT EZ Retailer</h3>
-                    <p class="tech-stack">E-Commerce • Secure Checkout • UX</p>
-                    <p>An electronic products retailer site featuring search filters, secure checkout, and cross-device accessibility.</p>
-                    <div class="project-links">
-                        <a href="https://crisander23.github.io/TechITEZ">View Shop</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <video class="project-media" controls>
-                    <source src="assets/crypto.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="project-info">
-                    <h3>Web3 Crypto Dashboard</h3>
-                    <p class="tech-stack">Web3 • API Integration • Real-time Data</p>
-                    <p>A live cryptocurrency dashboard providing price updates, market analysis, and buy/hold recommendations.</p>
-                    <div class="project-links">
-                        <a href="https://crisander23.github.io/CryptoDash/" target="_blank">Live Dashboard</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2>Get In Touch</h2>
-        <div class="contact-container">
-            <p>Currently open to new opportunities in Full Stack Development.</p>
-            <br>
-            <a href="mailto:crisander.dollentas@gmail.com" class="btn">Send Email</a>
-            
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/crisander-dollentas/">LinkedIn</a>
-                <a href="https://github.com/crisander23">GitHub</a>
-              
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2025. Built with HTML & CSS.</p>
-    </footer>
+    </div>
 
     <script>
+        // --- DARK MODE LOGIC ---
         const toggleButton = document.getElementById('theme-toggle');
         const body = document.body;
 
-        // 1. Check if user already has a preference saved in local storage
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme === 'dark') {
             body.classList.add('dark-mode');
-            toggleButton.textContent = '☀️'; // Switch icon to sun
+            toggleButton.textContent = '☀️';
         }
 
-        // 2. Add event listener to toggle button
         toggleButton.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
-
-            // 3. Save preference and update icon
             if (body.classList.contains('dark-mode')) {
                 localStorage.setItem('theme', 'dark');
                 toggleButton.textContent = '☀️';
@@ -640,7 +662,45 @@
                 toggleButton.textContent = '🌙';
             }
         });
-    </script>
 
+        // --- MODAL LOGIC ---
+        const modal = document.getElementById("projectModal");
+        const modalFrame = document.getElementById("modalFrame");
+        const modalTitle = document.getElementById("modalTitle");
+        const closeBtn = document.querySelector(".close-btn");
+        const siteLinks = document.querySelectorAll(".site-link");
+
+        siteLinks.forEach(link => {
+            link.addEventListener("click", function(e) {
+                // Prevent default navigation
+                e.preventDefault();
+                
+                // Set iframe src to the project URL
+                modalFrame.src = this.href;
+                
+                // Optional: Update title based on project (looks for h3 parent)
+                // Finding the closest h3 in the card to use as title
+                const cardTitle = this.closest('.project-info').querySelector('h3').innerText;
+                modalTitle.innerText = "Viewing: " + cardTitle;
+
+                // Show modal (using flex to center)
+                modal.style.display = "flex";
+            });
+        });
+
+        // Close Modal on X click
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+            modalFrame.src = ""; // Stop loading to save memory/stop audio
+        }
+
+        // Close Modal on Outside click
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                modalFrame.src = "";
+            }
+        }
+    </script>
 </body>
 </html>
